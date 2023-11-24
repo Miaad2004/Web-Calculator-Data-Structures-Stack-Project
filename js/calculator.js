@@ -39,6 +39,39 @@ class Calculator
 {
     constructor (operators)
     {
+
+    evaluateExpression(expression)
+    {
+        for (let i = 0; i < expression.length; i++)
+        {
+            const token = expression[i];
+            if (typeof(token) === 'number')
+            {
+                this.#_operandsStack.push(token)
+            }
+
+            else if (token instanceof Operator)
+            {
+                while (!token.hasHigherPriority(this.#_operatorsStack.top()))
+                {
+                    this.evaluateOperator(token);
+                }
+                
+                this.#_operatorsStack.push(token);
+            }
+
+            else
+                throw new InvalidTokenError(`token ${token} was not recognized.`);
+        }
+
+        while (!this.#_operatorsStack.isEmpty())
+        {
+            this.evaluateOperator(this.#_operatorsStack.pop());
+        }
+
+        return this.#_operandsStack.top();
+    }
+
     clear()
     {
         this.#_operandsStack.clear();
