@@ -2,43 +2,55 @@ const Stack = require('./stack');
 
 class Operator
 {
-    #_priority;
-    #_func;
-    #_hasIndefiniteArgs
-
-    constructor(priority, symbol, func, hasIndefiniteArgs=false)
+    constructor(priority, symbol, func)
     {
         this.symbol = symbol;
-        this.#_priority = priority;
-        this.#_func = func;
-        this.#_hasIndefiniteArgs = hasIndefiniteArgs;
+        this.priority = priority;
+        this.func = func;
     }
 
-    get priority ()
+    hasHigherPriority (otherOperator)
     {
-        return this.#_priority;
+        return this.priority > otherOperator.priority;
     }
 
-    get func ()
+    toString ()
     {
-        return this.#_func
+        return this.symbol;
     }
 
-    get hasIndefiniteArgs ()
+    nRequiredArgs()
     {
-        return this.#_hasIndefiniteArgs;
-    }
-
-    hasHigherOrEqualPriority (otherOperator)
-    {
-        return this.priority() >= otherOperator.priority();
+        return this.func.length;
     }
 }
 
 class Calculator
 {
+    #_operandsStack;
+    #_operatorsStack;
+
     constructor (operators)
     {
+        this.#_operandsStack = new Stack();
+        this.#_operatorsStack = new Stack();
+        this.operators = operators;
+        this.radianMode = false;
+    }
+
+    evaluateOperator (operator)
+    {
+        if (this.#_operandsStack.length <= operator.nRequiredArgs())
+            throw new InvalidOperatorError(`Not enough operands exist for operator ${operator}`);
+
+        const requiredArgs = [];
+    
+        for (let i = 0; i < operator.nRequiredArgs(); i++)
+            requiredArgs.unshift(this.#_operandsStack.pop());
+        
+        const result = operator.func(requiredArgs);
+        this.#_operandsStack.push(result);
+    }
 
     evaluateExpression(expression)
     {
