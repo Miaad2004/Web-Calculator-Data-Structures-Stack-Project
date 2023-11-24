@@ -18,31 +18,31 @@ class Stack
 
     push(element)
     {
-        this.array.push(element);
+        this.#_array.push(element);
     }
 
     pop()
     {
-        if (this.array.length == 0) {
+        if (this.#_array.length == 0) {
             throw new StackEmptyError("Can't pop from an empty stack.");    
         }
 
-        return this.array.pop();
+        return this.#_array.pop();
     }
 
     size()
     {
-        return this.array.length;
+        return this.#_array.length;
     }
 
     top()
     {
-        return this.array[this.array.length - 1];
+        return this.#_array[this.#_array.length - 1];
     }
 
     isEmpty()
     {
-        return this.array.length == 0;
+        return this.#_array.length == 0;
     }
 
     clear ()
@@ -51,6 +51,16 @@ class Stack
         {
             this.pop();
         }
+    }
+
+    getLength ()
+    {
+        return this.#_array.length;
+    }
+
+    toString ()
+    {
+        return this.#_array.toString();
     }
 }
 
