@@ -1,5 +1,6 @@
 const Stack = require('./stack');
 
+
 class Operator
 {
     constructor(priority, symbol, func)
@@ -11,6 +12,9 @@ class Operator
 
     hasHigherPriority (otherOperator)
     {
+        if (otherOperator === '(')
+            return true;
+
         return this.priority > otherOperator.priority;
     }
 
@@ -30,25 +34,24 @@ class Calculator
     #_operandsStack;
     #_operatorsStack;
 
-    constructor (operators)
+    constructor ()
     {
         this.#_operandsStack = new Stack();
         this.#_operatorsStack = new Stack();
-        this.operators = operators;
         this.radianMode = false;
     }
 
     evaluateOperator (operator)
     {
-        if (this.#_operandsStack.length <= operator.nRequiredArgs())
+        if (this.#_operandsStack.getLength() <= operator.nRequiredArgs())
             throw new InvalidOperatorError(`Not enough operands exist for operator ${operator}`);
 
         const requiredArgs = [];
-    
+
         for (let i = 0; i < operator.nRequiredArgs(); i++)
             requiredArgs.unshift(this.#_operandsStack.pop());
         
-        const result = operator.func(requiredArgs);
+        const result = operator.func(...requiredArgs);
         this.#_operandsStack.push(result);
     }
 
@@ -57,6 +60,7 @@ class Calculator
         for (let i = 0; i < expression.length; i++)
         {
             const token = expression[i];
+            
             if (typeof(token) === 'number')
             {
                 this.#_operandsStack.push(token)
@@ -64,18 +68,33 @@ class Calculator
 
             else if (token instanceof Operator)
             {
-                while (!token.hasHigherPriority(this.#_operatorsStack.top()))
+                while (!this.#_operatorsStack.isEmpty() && !token.hasHigherPriority(this.#_operatorsStack.top()))
                 {
-                    this.evaluateOperator(token);
+                    this.evaluateOperator(this.#_operatorsStack.pop());
                 }
                 
                 this.#_operatorsStack.push(token);
             }
 
+            else if (token === '(')
+            {
+                this.#_operatorsStack.push(token);
+            }
+
+            else if (token === ')')
+            {
+                while (this.#_operatorsStack.top() !== '(')
+                {
+                    this.evaluateOperator(this.#_operatorsStack.pop());
+                }
+
+                this.#_operatorsStack.pop();
+            }
+
             else
                 throw new InvalidTokenError(`token ${token} was not recognized.`);
         }
-
+        
         while (!this.#_operatorsStack.isEmpty())
         {
             this.evaluateOperator(this.#_operatorsStack.pop());
@@ -124,4 +143,3 @@ class Calculator
         return {isValid, invalidIndexes}
     }
 }
-
