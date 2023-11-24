@@ -1,8 +1,38 @@
 const Stack = require('./stack');
 
+class Operator
+{
+    #_priority;
+    #_func;
+    #_hasIndefiniteArgs
+
+    constructor(priority, symbol, func, hasIndefiniteArgs=false)
+    {
+        this.symbol = symbol;
+        this.#_priority = priority;
+        this.#_func = func;
+        this.#_hasIndefiniteArgs = hasIndefiniteArgs;
+    }
+
+    get priority ()
+    {
+        return this.#_priority;
+    }
+
+    get func ()
+    {
+        return this.#_func
+    }
+
+    get hasIndefiniteArgs ()
+    {
+        return this.#_hasIndefiniteArgs;
+    }
+}
+
 class Calculator
 {
-    constructor()
+    constructor (operators)
     {
 
     }
