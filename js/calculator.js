@@ -1,0 +1,8 @@
+
+class Calculator
+{
+    constructor()
+    {
+
+    }
+}
