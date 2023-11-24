@@ -39,7 +39,10 @@ class Calculator
 {
     constructor (operators)
     {
-
+    clear()
+    {
+        this.#_operandsStack.clear();
+        this.#_operatorsStack.clear();
     }
 
     static isParenthesesSeqValid(sequence)
