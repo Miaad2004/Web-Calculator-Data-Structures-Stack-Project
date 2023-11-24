@@ -1,3 +1,12 @@
+class StackEmptyError extends Error
+{
+    constructor (msg)
+    {
+        super(msg);
+        this.name = "StackEmptyError";
+    }
+}
+
 class Stack
 {
     #_array;
@@ -15,7 +24,7 @@ class Stack
     pop()
     {
         if (this.array.length == 0) {
-            throw "Can't pop from an empty stack.";    
+            throw new StackEmptyError("Can't pop from an empty stack.");    
         }
 
         return this.array.pop();
@@ -34,6 +43,14 @@ class Stack
     isEmpty()
     {
         return this.array.length == 0;
+    }
+
+    clear ()
+    {
+        while (!this.isEmpty())
+        {
+            this.pop();
+        }
     }
 }
 
