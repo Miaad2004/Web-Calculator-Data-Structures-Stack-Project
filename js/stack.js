@@ -1,8 +1,10 @@
 class Stack
 {
+    #_array;
+
     constructor()
     {
-        this.array = [];
+        this.#_array = [];
     }
 
     push(element)
@@ -34,3 +36,5 @@ class Stack
         return this.array.length == 0;
     }
 }
+
+module.exports = Stack;
