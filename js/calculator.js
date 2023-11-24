@@ -28,6 +28,11 @@ class Operator
     {
         return this.#_hasIndefiniteArgs;
     }
+
+    hasHigherOrEqualPriority (otherOperator)
+    {
+        return this.priority() >= otherOperator.priority();
+    }
 }
 
 class Calculator
