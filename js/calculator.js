@@ -43,7 +43,7 @@ class Calculator
 
     evaluateOperator (operator)
     {
-        if (this.#_operandsStack.getLength() <= operator.nRequiredArgs())
+        if (this.#_operandsStack.getLength() < operator.nRequiredArgs())
             throw new InvalidOperatorError(`Not enough operands exist for operator ${operator}`);
 
         const requiredArgs = [];
@@ -143,3 +143,5 @@ class Calculator
         return {isValid, invalidIndexes}
     }
 }
+
+console.log(Math.log2(-5))
