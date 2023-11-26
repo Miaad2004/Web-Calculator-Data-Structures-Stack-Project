@@ -6,37 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Scientific Calculator</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/resources/favicon.svg">
 
     <!-- For social media previews -->
-    <meta property="og:title" content="Edges2Cats">
+    <meta property="og:title" content="Scientific Calculator">
     <meta property="og:description" content="A Scientific Calculator implemented using stacks. 🧮🔬">
     <meta property="og:image" content="">
     <meta property="og:url" content="">
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <h1 class="text" id="title">Scientific Calculator</h1>
-    <video id="background-video" autoplay loop muted>
-        <source src="resources/bg.mp4" type="video/mp4">
-    </video>
+    <div class="container">
+        <video class="position-fixed top-0 bottom-0 start-0 end-0 w-100 h-100 z-n1 object-fit-cover"
+            id="background-video" autoplay loop muted>
+            <source src="resources/bg.mp4" type="video/mp4">
+        </video>
 
-    <!-- Calculator -->
+        <h1 class="text-center text-white text-center bg-dark bg-opacity-25 p-3">Scientific Calculator</h1>
 
-    <!-- Footer -->
-    <footer class="page-footer">
-        <p>Created by Miaad Kimiagari</p>
-        <p>Code available on <a href="https://github.com/Miaad2004">Github</a></p>
-    </footer>
+        <!-- Calculator -->
+
+        <div class="calculator m-auto z-1">
+            <div class="m-1 mb-3">
+                <input type="text" class="calculator-screen w-100 p-2" value="2 * 2 = 5" disabled />
+            </div>
+
+            <div class="row p-1 pb-2">
+                <div class="btn-group btn-group-sm btn-group-md btn-group-lg my-auto w-auto">
+                    <input type="radio" class="btn-check" name="options" id="radians" autocomplete="off" checked />
+                    <label class="btn btn-sm btn-md btn-outline-warning" for="radians" data-mdb-ripple-init>Rad</label>
+
+                    <input type="radio" class="btn-check" name="options" id="degrees" autocomplete="off" />
+                    <label class="btn btn-sm btn-md btn-outline-warning" for="degrees" data-mdb-ripple-init>Deg</label>
+                </div>
+
+                <div class="btn-group btn-group-sm btn-group-md btn-group-lg my-auto w-auto" id="rad-deg-selector">
+                    <input type="radio" class="btn-check" name="options2" id="default" autocomplete="off" checked />
+                    <label class="btn btn-sm btn-md btn-outline-warning" for="default" data-mdb-ripple-init>Def</label>
+
+                    <input type="radio" class="btn-check" name="options2" id="arc" autocomplete="off" />
+                    <label class="btn btn-sm btn-md btn-outline-warning" for="arc" data-mdb-ripple-init>Arc</label>
+
+                    <input type="radio" class="btn-check" name="options2" id="hyp" autocomplete="off" />
+                    <label class="btn btn-sm btn-md btn-outline-warning" for="hyp" data-mdb-ripple-init>Hyp</label>
+                </div>
+            </div>
+
+            <div class="calculator-buttons">
+
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-dark btn-lg rounded-1">sin</button>
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-dark btn-lg rounded-1">//</button>
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-dark btn-lg rounded-1">%</button>
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">(</button>
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">)</button>
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">AC</button>
+                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        class="bi bi-backspace" viewBox="0 0 16 16">
+                        <path
+                            d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z" />
+                        <path
+                            d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
+                    </svg>
+                </button>
+
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">cos</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">∛</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">&radic;</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">7</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">8</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">9</button>
+                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&divide</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">tan</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">x<sup>2</sup></button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">x<sup>y</sup></button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">4</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">5</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">6</button>
+                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&times;</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">cot</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">e</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">ln</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">1</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">2</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">3</button>
+                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&minus;</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">sec</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">&pi;</button>
+                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">log</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">0</button>
+                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">.</button>
+                <button class="btn btn-sm btn-md btn-danger btn-lg rounded-1">&equals;</button>
+                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&plus;</button>
+            </div>
+        </div>
+
+
+
+
+        <!-- Footer -->
+        <footer
+            class="page-footer text-capitalize text-white text-center position-fixed p-2 bottom-0 start-0 w-100 z-0">
+            <p class="m-0 p-1">Created by Miaad Kimiagari</p>
+            <p class="m-0 p-1">Code available on <a href="https://github.com/Miaad2004" class="text-white">Github</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
