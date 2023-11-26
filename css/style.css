@@ -1,57 +1,52 @@
 body {
     min-height: 100vh;
-    background: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7)), center/cover no-repeat;
+    background: url('/resources/bg.png') center/cover no-repeat;
+    overflow-y: scroll;
   }
 
-#background-video {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-}
-
-
-.text {
-    display: inline-block;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    font-weight: bold;
+h1 {
+    border: 3px solid #ff08ac;
+    max-width: 600px;
+    min-width: none;
+    margin: 5px auto;
+    margin-top: 15px;
+  }
+  .calculator-buttons button
+  {
+    font-weight: 600 !important;
+    font-size: 2rem !important;
+    height: 2.2em;
+    width: 2.2em;
     text-align: center;
   }
-  
-  h1 {
-    position: absolute;
-    top: 7%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 3px solid #ff08ac;
-    padding: 20px;
-    width: 50%;
-  }
-  
+
 /* Footer */
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(24, 47, 84, 0.75);
-    color: white;
-    text-align: center;
-    padding: 10px;
-    opacity: 0.8;
+    background-color: rgba(45, 23, 71, 0.75);
   }
+
   
-  footer a {
-    color: white;
+  .calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 7px;
+
   }
-  
-  footer p {
-    margin: 0;
+  .calculator {
+    background-color: rgba(45, 23, 71, 0.75);
     padding: 5px;
+    max-width: 550px;
   }
+
+
+@media (max-width: 776px) {
+  .calculator-buttons button {
+    font-size: 0.9rem !important;
+    width: 40px;
+    height: 40px;
+  }
+
+  .calculator-buttons {
+    gap: 5px;
+  }
+}
