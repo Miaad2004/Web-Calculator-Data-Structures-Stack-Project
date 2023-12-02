@@ -286,8 +286,11 @@ function main()
 
 // Loading timeout 
 setTimeout(function() {
-    sendNotification("Loading timed out.")
     const loadingOverlay = document.getElementById("loading-overlay")
+
+    if (!loadingOverlay.hidden)
+        sendNotification("Loading timed out.")
+    
     loadingOverlay.hidden = true
 }, 8500);
 
