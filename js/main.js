@@ -94,7 +94,7 @@ class CalculatorUserInterface
         // Make sure the input expression isn't empty
         if (this.currentExpression.length == 0)
         {
-            this.sendNotification("Please enter a valid expression.")
+            sendNotification("Please enter a valid expression.")
             return
         }
 
@@ -108,7 +108,7 @@ class CalculatorUserInterface
 
         catch (err)
         {
-            this.sendNotification(err.message)
+            sendNotification(err.message)
             this.clearAll()
             this.currentExpression = ["Error"]
 
@@ -175,19 +175,6 @@ class CalculatorUserInterface
         return outputText
     }
 
-    sendNotification(message)
-    {
-        // Set the notification's message
-        var notificationTextElement = document.getElementById('notification-message')
-        notificationTextElement.innerHTML = message;
-
-        // Get the notification box element
-        var notificationBox = document.getElementById('push-notification')
-        var notification = new bootstrap.Toast(notificationBox)
-
-        notification.show()   
-    }
-
     onAngleModeChanged()
     {
         MathOperations.radianMode = this.radiansRadio.checked
@@ -221,6 +208,19 @@ class CalculatorUserInterface
         this.currExpressionTxtElement.innerText = this.expressionToText(this.currentExpression) + this.currentOperand
         this.highlightInvalidParentheses()
     }
+}
+
+function sendNotification(message)
+{
+    // Set the notification's message
+    var notificationTextElement = document.getElementById('notification-message')
+    notificationTextElement.innerHTML = message;
+
+    // Get the notification box element
+    var notificationBox = document.getElementById('push-notification')
+    var notification = new bootstrap.Toast(notificationBox)
+
+    notification.show()   
 }
 
 function main()
@@ -286,6 +286,7 @@ function main()
 
 // Loading timeout 
 setTimeout(function() {
+    sendNotification("Loading timed out.")
     const loadingOverlay = document.getElementById("loading-overlay")
     loadingOverlay.hidden = true
 }, 10000);
