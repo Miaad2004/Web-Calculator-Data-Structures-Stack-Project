@@ -284,6 +284,13 @@ function main()
 }
 
 
+// Loading timeout 
+setTimeout(function() {
+    const loadingOverlay = document.getElementById("loading-overlay")
+    loadingOverlay.hidden = true
+}, 10000);
+
 window.onload = main
+
 
 
