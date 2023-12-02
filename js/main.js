@@ -289,7 +289,7 @@ setTimeout(function() {
     sendNotification("Loading timed out.")
     const loadingOverlay = document.getElementById("loading-overlay")
     loadingOverlay.hidden = true
-}, 10000);
+}, 6500);
 
 window.onload = main
 
