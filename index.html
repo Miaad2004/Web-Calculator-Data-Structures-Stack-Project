@@ -11,8 +11,8 @@
     <!-- For social media previews -->
     <meta property="og:title" content="Scientific Calculator">
     <meta property="og:description" content="A Scientific Calculator implemented using stacks. 🧮🔬">
-    <meta property="og:image" content="">
-    <meta property="og:url" content="">
+    <meta property="og:image" content="./screenshots/screenshot.png">
+    <meta property="og:url" content="https://pretty-sci-calc.netlify.app/">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -32,7 +32,7 @@
 
         <!-- Notification Box-->
         <div id="push-notification" role="alert" aria-live="assertive" aria-atomic="true"
-            class="toast position-absolute top-0 end-0 m-2" data-delay="10000">
+            class="toast position-absolute top-0 end-0 m-2 z-3" data-delay="10000">
 
             <div class="toast-header">
 
@@ -151,7 +151,8 @@
                 </div>
 
                 <!-- +/- button -->
-                <button data-operand="-" class="btn btn-sm btn-md btn-lg btn-outline-warning rounded-1 my-auto w-auto">+/-</button>
+                <button data-operand="-"
+                    class="btn btn-sm btn-md btn-lg btn-outline-warning rounded-1 my-auto w-auto">+/-</button>
             </div>
 
             <!-- Calculator Grid-->
@@ -242,7 +243,8 @@
     <!-- Footer  -->
     <footer class="text-capitalize text-white text-center p-2 mt-3 position-absolute w-100 bottom-0">
         <p>Created by Miaad Kimiagari</p>
-        <p>Code available on <a href="https://github.com/Miaad2004" class="text-white">Github</a>
+        <p>Code available on <a href="https://github.com/Miaad2004/Web-Calculator-Data-Structures-Stack-Project"
+                class="text-white">Github</a>
         </p>
     </footer>
 
