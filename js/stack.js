@@ -63,5 +63,3 @@ class Stack
         return this.#_array.toString();
     }
 }
-
-module.exports = Stack;

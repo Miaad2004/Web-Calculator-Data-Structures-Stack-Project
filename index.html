@@ -18,106 +18,235 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Scripts -->
+    <script src="./js/stack.js"></script>
+    <script src="./js/errors.js"></script>
+    <script src="./js/calculator.js"></script>
+    <script src="./js/mathOperations.js"></script>
+    <script src="./js/main.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <video class="position-fixed top-0 bottom-0 start-0 end-0 w-100 h-100 z-n1 object-fit-cover"
-            id="background-video" autoplay loop muted>
+    <div class="container position-static">
+
+        <!-- Notification Box-->
+        <div id="push-notification" role="alert" aria-live="assertive" aria-atomic="true"
+            class="toast position-absolute top-0 end-0 m-2" data-delay="10000">
+
+            <div class="toast-header">
+
+                <!-- icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                    <path
+                        d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                    <path
+                        d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                </svg>
+
+                <!-- Header -->
+                <strong class="mr-auto text-danger m-1">Error</strong>
+
+            </div>
+
+            <!-- Message -->
+            <div id="notification-message" class="toast-body"> </div>
+
+        </div>
+
+        <!-- Loading Screen-->
+        <div class="spinner-overlay position-fixed top-0 start-0 w-100 h-100 object-fit-cover" id="loading-overlay">
+
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden"> Loading...</span>
+            </div>
+
+        </div>
+
+        <!-- Background Video -->
+        <video class="position-fixed top-0 start-0 w-100 h-100 z-n1 object-fit-cover" id="background-video" autoplay
+            loop muted>
             <source src="resources/bg.mp4" type="video/mp4">
         </video>
 
-        <h1 class="text-center text-white text-center bg-dark bg-opacity-25 p-3">Scientific Calculator</h1>
+        <!-- Title -->
+        <h1 class="text-center text-white text-center bg-dark bg-opacity-25 p-3 mb-4 position-relative">
+            Scientific Calculator
+        </h1>
 
         <!-- Calculator -->
+        <div class="calculator m-auto z-1 align-content-center position-relative" id="main">
 
-        <div class="calculator m-auto z-1">
-            <div class="m-1 mb-3">
-                <input type="text" class="calculator-screen w-100 p-2" value="2 * 2 = 5" disabled />
+            <!-- Output box -->
+            <div class="output">
+                <div class="previous-operand" id="previous-expression"></div>
+                <div class="current-operand" id="current-expression"></div>
             </div>
 
-            <div class="row p-1 pb-2">
+            <!-- Top row buttons-->
+            <div class="row row-cols-4 p-1 pb-2">
+
+                <!-- Radians/Degrees selector-->
                 <div class="btn-group btn-group-sm btn-group-md btn-group-lg my-auto w-auto">
+
                     <input type="radio" class="btn-check" name="options" id="radians" autocomplete="off" checked />
                     <label class="btn btn-sm btn-md btn-outline-warning" for="radians" data-mdb-ripple-init>Rad</label>
 
                     <input type="radio" class="btn-check" name="options" id="degrees" autocomplete="off" />
                     <label class="btn btn-sm btn-md btn-outline-warning" for="degrees" data-mdb-ripple-init>Deg</label>
+
                 </div>
 
-                <div class="btn-group btn-group-sm btn-group-md btn-group-lg my-auto w-auto" id="rad-deg-selector">
+                <!-- Trig arc mode selector-->
+                <div class="btn-group btn-group-sm btn-group-md btn-group-lg my-auto w-auto">
+
                     <input type="radio" class="btn-check" name="options2" id="default" autocomplete="off" checked />
                     <label class="btn btn-sm btn-md btn-outline-warning" for="default" data-mdb-ripple-init>Def</label>
 
                     <input type="radio" class="btn-check" name="options2" id="arc" autocomplete="off" />
                     <label class="btn btn-sm btn-md btn-outline-warning" for="arc" data-mdb-ripple-init>Arc</label>
 
-                    <input type="radio" class="btn-check" name="options2" id="hyp" autocomplete="off" />
-                    <label class="btn btn-sm btn-md btn-outline-warning" for="hyp" data-mdb-ripple-init>Hyp</label>
                 </div>
+
+                <!-- Functions Dropdown-->
+                <div class="dropdown">
+
+                    <button class="btn btn-sm btn-md btn-outline-warning dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        data-bs-toggle="dropdown">
+                        Functions
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown-menu bg-dark p-3" aria-labelledby="dropdownMenuButton">
+
+                        <!-- Grid -->
+                        <div class="row row-cols-3">
+
+                            <div class="col">
+                                <button data-operator="avg" class="btn btn-sm btn-outline-warning rounded-1 mb-2"
+                                    disabled>Avg</button>
+                                <button data-operator="sigma" class="btn btn-sm btn-outline-warning rounded-1"
+                                    disabled>Sum</button>
+                            </div>
+
+                            <div class="col">
+                                <button data-operator="ceil"
+                                    class="btn btn-sm btn-outline-warning rounded-1 mb-2">⌈x⌉</button>
+                                <button data-operator="floor"
+                                    class="btn btn-sm btn-outline-warning rounded-1">⌊x⌋</button>
+                            </div>
+
+                            <div class="col">
+                                <button data-operator="∏" class="btn btn-sm btn-outline-warning rounded-1 mb-2"
+                                    disabled>∏</button>
+                                <button data-operator="!" class="btn btn-sm btn-outline-warning rounded-1">x!</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- +/- button -->
+                <button data-operand="-" class="btn btn-sm btn-outline-warning rounded-1 my-auto w-auto">+/-</button>
             </div>
 
-            <div class="calculator-buttons">
+            <!-- Calculator Grid-->
+            <div class="calculator-grid align-content-center">
+                <!-- First Row -->
+                <button data-operator="sin" data-trig="sin"
+                    class="btn btn-sm btn-md btn-lg btn-dark rounded-1">sin</button>
 
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-dark btn-lg rounded-1">sin</button>
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-dark btn-lg rounded-1">//</button>
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-dark btn-lg rounded-1">%</button>
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">(</button>
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">)</button>
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">AC</button>
-                <button class="btn btn-sm btn-md btn-sm btn-md btn-lg btn-warning btn-lg rounded-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                        class="bi bi-backspace" viewBox="0 0 16 16">
-                        <path
-                            d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z" />
-                        <path
-                            d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
-                    </svg>
-                </button>
+                <button data-operator="//" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">//</button>
 
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">cos</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">∛</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">&radic;</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">7</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">8</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">9</button>
-                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&divide</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">tan</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">x<sup>2</sup></button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">x<sup>y</sup></button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">4</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">5</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">6</button>
-                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&times;</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">cot</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">e</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">ln</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">1</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">2</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">3</button>
-                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&minus;</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">sec</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">&pi;</button>
-                <button class="btn btn-sm btn-md btn-dark btn-lg rounded-1">log</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">0</button>
-                <button class="btn btn-sm btn-md btn-info btn-lg rounded-1">.</button>
-                <button class="btn btn-sm btn-md btn-danger btn-lg rounded-1">&equals;</button>
-                <button class="btn btn-sm btn-md btn-warning btn-lg rounded-1">&plus;</button>
+                <button data-operator="%" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">mod</button>
+
+                <button data-operator="(" class="btn btn-sm btn-md btn-lg btn-warning rounded-1">(</button>
+
+                <button data-operator=")" class="btn btn-sm btn-md btn-lg btn-warning rounded-1">)</button>
+
+                <button clear-all class="btn btn-sm btn-md btn-lg btn-warning rounded-1">AC</button>
+
+                <button delete class="btn btn-sm btn-md btn-lg btn-warning rounded-1">C</button>
+
+                <!-- Second row -->
+                <button data-operator="cos" data-trig="cos"
+                    class="btn btn-md btn-sm btn-lg btn-dark rounded-1">cos</button>
+
+                <button data-operator="cbrt" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">∛</button>
+
+                <button data-operator="sqrt" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">√</button>
+
+                <button data-operand="7" class="btn btn-sm btn-md btn-lg btn-info rounded-1">7</button>
+
+                <button data-operand="8" class="btn btn-sm btn-md btn-lg btn-info rounded-1">8</button>
+
+                <button data-operand="9" class="btn btn-sm btn-md btn-lg btn-info rounded-1">9</button>
+
+                <button data-operator="/" class="btn btn-sm btn-md btn-lg btn-warning rounded-1">&divide</button>
+
+                <!-- Third Row -->
+                <button data-operator="tan" data-trig="tan"
+                    class="btn btn-sm btn-md btn-lg btn-dark rounded-1">tan</button>
+
+                <button data-operator="sqr" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">x<sup>2</sup></button>
+
+                <button data-operator="^" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">x<sup>y</sup></button>
+
+                <button data-operand="4" class="btn btn-sm btn-md btn-lg btn-info rounded-1">4</button>
+
+                <button data-operand="5" class="btn btn-sm btn-md btn-lg btn-info rounded-1">5</button>
+
+                <button data-operand="6" class="btn btn-sm btn-md btn-lg btn-info  rounded-1">6</button>
+
+                <button data-operator="*" class="btn btn-sm btn-md btn-lg btn-warning  rounded-1">&times;</button>
+
+                <!-- Fourth Row -->
+                <button data-operator="cot" data-trig="cot"
+                    class="btn btn-sm btn-md btn-lg btn-dark rounded-1">cot</button>
+
+                <button data-operand="e" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">e</button>
+
+                <button data-operator="ln" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">ln</button>
+
+                <button data-operand="1" class="btn btn-sm btn-md btn-info btn-lg rounded-1">1</button>
+
+                <button data-operand="2" class="btn btn-sm btn-md btn-info btn-lg rounded-1">2</button>
+
+                <button data-operand="3" class="btn btn-sm btn-md btn-info btn-lg rounded-1">3</button>
+
+                <button data-operator="-" class="btn btn-sm btn-md btn-lg btn-warning rounded-1">&minus;</button>
+
+                <!-- Fifth Row -->
+                <button data-operator="sec" data-trig="sec"
+                    class="btn btn-sm btn-md btn-lg btn-dark rounded-1">sec</button>
+
+                <button data-operand="π" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">π</button>
+
+                <button data-operator="log10" class="btn btn-sm btn-md btn-lg btn-dark rounded-1">log</button>
+
+                <button data-operand="0" class="btn btn-sm btn-md btn-info btn-lg rounded-1">0</button>
+
+                <button data-operand="." class="btn btn-sm btn-md btn-info btn-lg rounded-1">.</button>
+
+                <button equals class="btn btn-sm btn-md btn-lg btn-danger rounded-1">&equals;</button>
+
+                <button data-operator="+" class="btn btn-sm btn-md btn-lg btn-warning rounded-1">&plus;</button>
             </div>
         </div>
-
-
-
-
-        <!-- Footer -->
-        <footer
-            class="page-footer text-capitalize text-white text-center position-fixed p-2 bottom-0 start-0 w-100 z-0">
-            <p class="m-0 p-1">Created by Miaad Kimiagari</p>
-            <p class="m-0 p-1">Code available on <a href="https://github.com/Miaad2004" class="text-white">Github</a>
-            </p>
-        </footer>
     </div>
 
+    <!-- Footer  -->
+    <footer class="text-capitalize text-white text-center p-2 mt-3 position-absolute w-100 bottom-0">
+        <p>Created by Miaad Kimiagari</p>
+        <p>Code available on <a href="https://github.com/Miaad2004" class="text-white">Github</a>
+        </p>
+    </footer>
+
+    <!-- Bootstrap script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

@@ -1,52 +1,129 @@
-body {
-    min-height: 100vh;
-    background: url('/resources/bg.png') center/cover no-repeat;
-    overflow-y: scroll;
-  }
+body 
+{
+  min-height: 100vh;
+  background: url('/resources/bg.png') center/cover no-repeat;
+  overflow-y:scroll;
+}
 
-h1 {
-    border: 3px solid #ff08ac;
-    max-width: 600px;
-    min-width: none;
-    margin: 5px auto;
-    margin-top: 15px;
-  }
-  .calculator-buttons button
+h1 
+{
+  border: 3px solid #ff08ac;
+  min-width: none;
+  max-width: 600px;
+  margin: 5px auto;
+  margin-top: 15px;
+}
+
+
+/* Style for marking push notifications texts' */
+mark
+{
+  background-color: rgba(214, 106, 189, 0.25);
+}
+
+
+/* Loading Screen Styles*/
+.spinner-overlay
+{
+  background-color: rgba(17, 16, 16, 0.8);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-border
+{
+  height: 100px;
+  width: 100px;
+  color: #ff08ac;
+}
+
+
+/* Calculator Grid Styles */
+.calculator 
+{
+  background-color: rgba(45, 23, 71, 0.75);
+  padding: 5px;
+  max-width: 550px;
+}
+
+.calculator-grid
+{
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(7,1fr);
+  grid-template-rows: minmax(120, auto) repeat(5, 100px);
+  gap: 7px;
+
+}
+
+.calculator-grid button
+{
+  cursor: pointer;
+  font-weight: 525 !important;
+  font-size: 1.65rem !important;
+  height: 2.6em;
+  width: 2.6em;
+  text-align: center;
+}
+
+@media (max-width: 776px) 
+{
+  /* media queries for cellphones */
+  .calculator-grid button
   {
-    font-weight: 600 !important;
-    font-size: 2rem !important;
-    height: 2.2em;
-    width: 2.2em;
-    text-align: center;
-  }
-
-/* Footer */
-footer {
-    background-color: rgba(45, 23, 71, 0.75);
-  }
-
-  
-  .calculator-buttons {
-    display: grid;
-    grid-template-columns: repeat(7,1fr);
-    gap: 7px;
-
-  }
-  .calculator {
-    background-color: rgba(45, 23, 71, 0.75);
-    padding: 5px;
-    max-width: 550px;
-  }
-
-
-@media (max-width: 776px) {
-  .calculator-buttons button {
     font-size: 0.9rem !important;
     width: 40px;
     height: 40px;
   }
 
-  .calculator-buttons {
+  .calculator-grid 
+  {
     gap: 5px;
   }
+}
+
+
+/* Calculator Output Box Styles*/
+.output
+{
+  min-height: 70px;
+  grid-column: 1 / -1;     /* span over all the columns */
+  background-color: rgba(17, 16, 16, 0.65);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px;
+  margin: 5px;
+  word-wrap: break-word;
+  word-break:  break-all;
+}
+
+.output .current-operand
+{
+  color: white;
+  font-size: 2.5rem;
+}
+
+.output .previous-operand
+{
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.5rem;
+}
+
+
+/* Style for highlighting invalid parentheses */
+.highlight
+{
+  color: red;
+}
+
+
+
+/* Footer Styles*/
+footer
+{
+    background-color: rgba(45, 23, 71, 0.75);
 }

@@ -1,5 +1,3 @@
-const Stack = require('./stack');
-
 
 class Operator
 {
@@ -25,9 +23,11 @@ class Operator
 
     nRequiredArgs()
     {
+        // Returns the number of required arguments for this operator
         return this.func.length;
     }
 }
+
 
 class Calculator
 {
@@ -38,13 +38,12 @@ class Calculator
     {
         this.#_operandsStack = new Stack();
         this.#_operatorsStack = new Stack();
-        this.radianMode = false;
     }
 
     evaluateOperator (operator)
     {
         if (this.#_operandsStack.getLength() < operator.nRequiredArgs())
-            throw new InvalidOperatorError(`Not enough operands exist for operator ${operator}`);
+            throw new InvalidOperatorError(`Not enough operands exist for operator <mark>${operator}</mark>`);
 
         const requiredArgs = [];
 
@@ -61,11 +60,25 @@ class Calculator
         {
             const token = expression[i];
             
-            if (typeof(token) === 'number')
+            // If token is a number
+            if (!isNaN(token))
             {
-                this.#_operandsStack.push(token)
+                this.#_operandsStack.push(token * 1)
             }
 
+            // If token is the pi number
+            else if (token === "π")
+            {
+                this.#_operandsStack.push(Math.PI)
+            }
+
+            // If token is the euler's number
+            else if (token === "e")
+            {
+                this.#_operandsStack.push(Math.E)
+            }
+
+            // If token is an operator
             else if (token instanceof Operator)
             {
                 while (!this.#_operatorsStack.isEmpty() && !token.hasHigherPriority(this.#_operatorsStack.top()))
@@ -92,14 +105,16 @@ class Calculator
             }
 
             else
-                throw new InvalidTokenError(`token ${token} was not recognized.`);
+                throw new InvalidTokenError(`token <mark>${token}</mark> was not recognized.`);
         }
         
+        // Make sure all the operations have been done
         while (!this.#_operatorsStack.isEmpty())
         {
             this.evaluateOperator(this.#_operatorsStack.pop());
         }
 
+        // The result should be at the top of the operands stack 
         return this.#_operandsStack.top();
     }
 
@@ -111,8 +126,8 @@ class Calculator
 
     static isParenthesesSeqValid(sequence)
     {
-        
-        var isValid = true;
+        /* This method takes a string and returns the indexes of invalid parentheses if any*/
+        var isSequenceValid = true;
         const stack = new Stack();
         const invalidIndexes = [];
 
@@ -126,8 +141,9 @@ class Calculator
                     break;
                 
                 case ')':
-                    if (stack.isEmpty() || stack.pop().type !== "open") {
-                        isValid = false;
+                    if (stack.isEmpty() || stack.pop().type !== "open")
+                    {
+                        isSequenceValid = false;
                         invalidIndexes.push(i);
                     }
                     break;
@@ -136,12 +152,10 @@ class Calculator
 
         while (!stack.isEmpty())
         {
-            isValid = false;
+            isSequenceValid = false;
             invalidIndexes.push(stack.pop().index);
         }
 
-        return {isValid, invalidIndexes}
+        return {isSequenceValid, invalidIndexes}
     }
 }
-
-console.log(Math.log2(-5))
