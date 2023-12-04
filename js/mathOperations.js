@@ -101,7 +101,7 @@ class MathOperations
       if (Math.abs(x % Math.PI) === Math.PI / 2)
         MathOperations.throwError("tangent is not defined for multiples of PI/2.");
       
-      return this.radianMode ? Math.tan(x) : Math.tan(this.toRadians(a))
+      return this.radianMode ? Math.tan(x) : Math.tan(this.toRadians(x))
     },
 
     cot: (x) =>
@@ -109,7 +109,7 @@ class MathOperations
       if (Math.abs(x % Math.PI) === Math.PI)
         MathOperations.throwError("Cotangent is not defined for multiples of PI.");
       
-      return this.radianMode ? 1 / Math.tan(x) : 1 / Math.tan(this.toRadians(a))
+      return this.radianMode ? 1 / Math.tan(x) : 1 / Math.tan(this.toRadians(x))
     },
 
     sec: (x) => 
@@ -117,7 +117,7 @@ class MathOperations
       if (Math.abs(x % Math.PI) === Math.PI / 2) 
         MathOperations.throwError("Secant is not defined for multiples of PI/2.");
       
-      return this.radianMode ? 1 / Math.cos(x) : 1 / Math.cos(this.toRadians(a))
+      return this.radianMode ? 1 / Math.cos(x) : 1 / Math.cos(this.toRadians(x))
     },
 
     // Inverse trigonometric functions
