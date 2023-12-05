@@ -223,6 +223,7 @@ function sendNotification(message)
     notification.show()   
 }
 
+
 function main()
 {
     // Mode selectors
@@ -277,6 +278,48 @@ function main()
 
     const calculatorUI = new CalculatorUserInterface(prevExpressionTxtElement, currExpressionTextElement, radiansRadio, trigModeArcRadio, trigButtons)
 
+    // Add keyboard handler
+    document.addEventListener('keydown', function(event)
+    {
+        console.log(`Button ${event.key} clicked.`)
+
+        switch (event.key)
+        {
+            case 'Backspace': 
+                deleteButton.click();
+                break;
+            
+            case 'Delete': 
+                clearAllButton.click();
+                break;
+            
+            case '=':             
+            case 'Enter': 
+                equalsButton.click();
+                break;
+            
+            case '-':
+                operationButtons.forEach(button =>
+                    {
+                        if (button.getAttribute('data-operator') == '-')
+                            button.click()
+                    });
+                break;
+            
+            default:
+                operationButtons.forEach(button =>
+                    {
+                        if (button.getAttribute('data-operator') == event.key)
+                            button.click()
+                    });
+                    
+                operandButtons.forEach(button =>
+                    {
+                        if (button.getAttribute('data-operand') == event.key)
+                            button.click()
+                    });
+        }
+    });
 
     // Hide the loading overlay
     const loadingOverlay = document.getElementById("loading-overlay")
