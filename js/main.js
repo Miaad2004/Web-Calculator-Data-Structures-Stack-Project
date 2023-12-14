@@ -87,7 +87,7 @@ class CalculatorUserInterface
         // Make sure there are no invalid parentheses
         if (!Calculator.isParenthesesSeqValid(this.currExpressionTxtElement.innerText).isSequenceValid)
         {
-            this.sendNotification("Please check and close all parentheses in the input sequence.")
+            sendNotification("Please check and close all parentheses in the input sequence.")
             return
         }
 
